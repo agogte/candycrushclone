@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import ScoreBoard from './components/ScoreBoard'
 import blueCandy from './images/blue-candy.png'
 import greenCandy from './images/green-candy.png'
@@ -7,7 +7,7 @@ import purpleCandy from './images/purple-candy.png'
 import redCandy from './images/red-candy.png'
 import yellowCandy from './images/yellow-candy.png'
 import blank from './images/blank.png'
-
+import sound from './assets/sound.mp3'
 
 const width = 8
 const candyColors = [
@@ -26,7 +26,7 @@ function App() {
     const [squareBeingReplaced, setSquareBeingReplaced] = useState(null)
     const [scoreDisplay, setScoreDisplay] = useState(0)
 
-    const checkForColumnOfFour = () => {
+    const checkForColumnOfFour = useCallback(() => {
         for (let i = 0; i <= 39; i++) {
             const columnOfFour = [i, i + width, i + width * 2, i + width * 3]
             const decidedColor = currentColorArrangement[i]
@@ -38,9 +38,9 @@ function App() {
                 return true
             }
         }
-    }
+    },[currentColorArrangement])
 
-    const checkForRowOfFour = () => {
+    const checkForRowOfFour = useCallback(() => {
         for (let i = 0; i < 64; i++) {
             const rowOfFour = [i, i + 1, i + 2, i + 3]
             const decidedColor = currentColorArrangement[i]
@@ -55,9 +55,13 @@ function App() {
                 return true
             }
         }
+    },[currentColorArrangement])
+
+    function play() {
+        new Audio(sound).play()  
     }
 
-    const checkForColumnOfThree = () => {
+    const checkForColumnOfThree = useCallback(() => {
         for (let i = 0; i <= 47; i++) {
             const columnOfThree = [i, i + width, i + width * 2]
             const decidedColor = currentColorArrangement[i]
@@ -69,9 +73,9 @@ function App() {
                 return true
             }
         }
-    }
+    }, [currentColorArrangement])
 
-    const checkForRowOfThree = () => {
+    const checkForRowOfThree = useCallback(() => {
         for (let i = 0; i < 64; i++) {
             const rowOfThree = [i, i + 1, i + 2]
             const decidedColor = currentColorArrangement[i]
@@ -86,9 +90,9 @@ function App() {
                 return true
             }
         }
-    }
+    }, [currentColorArrangement])
 
-    const moveIntoSquareBelow = () => {
+    const moveIntoSquareBelow = useCallback(() => {
         for (let i = 0; i <= 55; i++) {
             const firstRow = [0, 1, 2, 3, 4, 5, 6, 7]
             const isFirstRow = firstRow.includes(i)
@@ -101,9 +105,10 @@ function App() {
             if ((currentColorArrangement[i + width]) === blank) {
                 currentColorArrangement[i + width] = currentColorArrangement[i]
                 currentColorArrangement[i] = blank
+                play()
             }
         }
-    }
+    }, [currentColorArrangement])
 
     const dragStart = (e) => {
         setSquareBeingDragged(e.target)
@@ -159,12 +164,17 @@ function App() {
     }, [])
 
     useEffect(() => {
+        play()
+    }, [])
+
+    useEffect(() => {
         const timer = setInterval(() => {
             checkForColumnOfFour()
             checkForRowOfFour()
             checkForColumnOfThree()
             checkForRowOfThree()
             moveIntoSquareBelow()
+            // play()
             setCurrentColorArrangement([...currentColorArrangement])
         }, 100)
         return () => clearInterval(timer)
@@ -177,7 +187,7 @@ function App() {
     return (
         <div className="bg-orange-100 flex flex-col px-8 h-screen w-screen items-center justify-center">
             <ScoreBoard score={scoreDisplay}/>
-            <div className="w-72 h-72 md:w-100 md:h-72 grid grid-cols-8 md:mb-16">
+            <div className="w-72 h-72 md:w-100 md:h-72 grid grid-cols-8 md:pb-20">
                 {currentColorArrangement.map((candyColor, index) => (
                     <img 
                         key={index}
@@ -194,7 +204,7 @@ function App() {
                     />
                 ))}
             </div>
-            <div className="pt-28 md:pt-64">
+            <div className="pt-28 md:pt-72">
               <button onClick={handleReset} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">RESET</button>
             </div>
             <p className="pt-10 font-bold text-lg font-serif">&copy; Advait Gogte</p>
