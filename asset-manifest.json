@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/candycrushclone/static/css/main.8b7f746c.css",
+    "main.js": "/candycrushclone/static/js/main.52ec0a77.js",
+    "static/media/purple-candy.png": "/candycrushclone/static/media/purple-candy.ae25b8a55e061a50346f.png",
+    "static/media/blue-candy.png": "/candycrushclone/static/media/blue-candy.73120c156936a4206714.png",
+    "static/media/red-candy.png": "/candycrushclone/static/media/red-candy.3658b37c743115db2a9a.png",
+    "static/media/orange-candy.png": "/candycrushclone/static/media/orange-candy.f106b2cdd163575a7c68.png",
+    "static/media/yellow-candy.png": "/candycrushclone/static/media/yellow-candy.a3d87a9b362b5f969133.png",
+    "static/media/green-candy.png": "/candycrushclone/static/media/green-candy.599f70161bdb3cadac66.png",
+    "static/media/sound.mp3": "/candycrushclone/static/media/sound.bb87366751bd047302b6.mp3",
+    "static/media/blank.png": "/candycrushclone/static/media/blank.fbcb91799ceba75b2e3a.png",
+    "index.html": "/candycrushclone/index.html",
+    "main.8b7f746c.css.map": "/candycrushclone/static/css/main.8b7f746c.css.map",
+    "main.52ec0a77.js.map": "/candycrushclone/static/js/main.52ec0a77.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8b7f746c.css",
+    "static/js/main.52ec0a77.js"
+  ]
+}
