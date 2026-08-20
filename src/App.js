@@ -192,16 +192,20 @@ function App() {
     }
 
     return (
-        <div className="bg-orange-100 flex flex-col px-8 h-screen w-screen items-center justify-center">
+        <div className="bg-gradient-to-br from-pink-200 via-orange-100 to-amber-200 flex flex-col px-4 min-h-screen w-screen items-center justify-center">
             {!isGameStarted ? (
         // Show the welcome screen
         <WelcomeScreen onStartGame={handleStartGame} />
       ) : (
         // Render your game component here
-        <><ScoreBoard score={scoreDisplay}/>
-            <div className="w-72 h-72 md:w-100 md:h-72 grid grid-cols-8 md:pb-20">
+        <div className="flex flex-col items-center py-8">
+            <h1 className="font-game text-3xl md:text-4xl mb-2 bg-gradient-to-r from-pink-500 via-orange-400 to-amber-500 bg-clip-text text-transparent">
+                Candy Crush Clone
+            </h1>
+            <ScoreBoard score={scoreDisplay}/>
+            <div className="grid grid-cols-8 gap-1 bg-white/60 backdrop-blur-sm p-3 rounded-2xl shadow-xl border border-white">
                 {currentColorArrangement.map((candyColor, index) => (
-                    <img 
+                    <img
                         key={index}
                         src={candyColor}
                         alt={candyColor}
@@ -213,14 +217,15 @@ function App() {
                         onDragLeave={(e) => e.preventDefault()}
                         onDrop={dragDrop}
                         onDragEnd={dragEnd}
+                        className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 object-contain rounded-md p-0.5 cursor-grab active:cursor-grabbing hover:scale-105 hover:drop-shadow-md transition-transform"
                     />
                 ))}
             </div>
-            <div className="pt-28 md:pt-72">
-              <button onClick={handleReset} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">RESET</button>
+            <div className="pt-6">
+              <button onClick={handleReset} className="bg-gradient-to-r from-pink-500 to-amber-500 hover:brightness-110 active:scale-95 text-white font-game tracking-wide py-2 px-8 rounded-full shadow-lg shadow-orange-300/50 transition-all">RESET</button>
             </div>
-            <p className="pt-10 font-bold text-lg font-serif">&copy; Advait Gogte</p>
-            </>
+            <p className="pt-6 font-semibold text-sm text-amber-800/70">&copy; Advait Gogte</p>
+            </div>
       )}
         </div>
         )
